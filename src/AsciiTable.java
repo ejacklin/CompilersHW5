@@ -42,7 +42,7 @@ public class AsciiTable {
 
             0x00, // 0x20 = ‘   ’
             0x02, // 0x21 = ‘ ! ’
-            0x02, // 0x22 = ‘ ” ’
+            0x07, // 0x22 = ‘ ” ’
             0x02, // 0x23 = ‘ # ’
             0x02, // 0x24 = ‘ $ ’
             0x02, // 0x25 = ‘ % ’
@@ -143,6 +143,10 @@ public class AsciiTable {
             0x02  // 0x7F = RBT
     };
 
+    public static char EquationTable[]={
+
+    };
+
 
     public static final HashMap Row = new HashMap(){
         {
@@ -156,6 +160,10 @@ public class AsciiTable {
     };
 
     public enum Token_Type{
-        TEXT, NUM, EQU, CMT
+        TEXT, NUM, EQU
+    }
+
+    enum Char_Type{
+        NUM, ID, SPEC
     }
 }

@@ -6,15 +6,22 @@ public class Cell {
     private String input;
     private Boolean error = false;
     private AsciiTable.Token_Type type;
-    private int row;
+    private int rowInt;
+    private char rowChar;
     private int column;
 
+    public Cell() {}
 
-    public Cell(String in, AsciiTable.Token_Type type, char row, int column) {
+    public Cell(String in, AsciiTable.Token_Type type, char rowChar, int column) {
         this.input = in;
         this.type = type;
-        this.row = row;
+        this.rowChar = rowChar;
         this.column = column;
+    }
+
+    public Cell(String in, AsciiTable.Token_Type type) {
+        this.input = in;
+        this.type = type;
     }
 
     public String getInput() {
@@ -41,12 +48,17 @@ public class Cell {
         this.type = type;
     }
 
-    public int getRow() {
-        return row;
+    public char getRow() {
+        return rowChar;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public int getRowInt() {
+        return rowInt;
+    }
+
+    public void setRow(char row) {
+        this.rowChar = row;
+        this.rowInt = (int) AsciiTable.Row.get(row);
     }
 
     public int getColumn() {
