@@ -159,11 +159,15 @@ public class AsciiTable {
         }
     };
 
-    public enum Token_Type{
-        TEXT, NUM, EQU
-    }
+    public static final HashMap Ops = new HashMap(){
+        {
+            put('+', Cell.Operation.ADD);
+            put('+', Cell.Operation.ADD);
+            put('-', Cell.Operation.SUBTRACT);
+            put('*', Cell.Operation.MULTIPLY);
+            put('/', Cell.Operation.DIVIDE);
+        }
+    };
 
-    enum Char_Type{
-        NUM, ID, SPEC
-    }
+
 }
