@@ -1,0 +1,28 @@
+# This input files is for the 605.415 Compiler Design course
+# Homework Assignment 3
+
+A7 
+
+A0 "Y ="
+B0 "aXX +
+C0 "bX + C"
+D0 "="
+E0 = B3*B2*B2 + B4*B2 + B5
+
+A1 "Y ="
+B1 "(aX+B)"
+C1 "*X+C"
+D1 "="
+E1 = (B3*B2+B4)*B2 + B5
+
+A2 "X ="
+B2  5
+
+A3  "a ="
+B3  2
+
+A4 "b ="
+B4  2
+
+A5 "c ="
+B5  -10

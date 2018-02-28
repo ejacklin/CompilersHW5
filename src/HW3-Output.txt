@@ -1,0 +1,206 @@
+      |     A      |     B      |     C      |     D      |     E      |     F      |
+   0  |         Y =|       aXX +|      bX + C|           =|          50|            |
+   1  |         Y =|      (aX+B)|        *X+C|           =|          50|            |
+   2  |         X =|           5|            |            |            |            |
+   3  |         a =|           2|            |            |            |            |
+   4  |         b =|           2|            |            |            |            |
+   5  |         c =|         -10|            |            |            |            |
+   6  |            |            |            |            |            |            |
+   7  |            |            |            |            |            |            |
+   8  |            |            |            |            |            |            |
+   9  |            |            |            |            |            |            |
+
+A0:
+	Controllers: {}
+	Users: {}
+B0:
+	Controllers: {}
+	Users: {}
+C0:
+	Controllers: {}
+	Users: {}
+D0:
+	Controllers: {}
+	Users: {}
+E0:
+	Controllers: {B3 B2 B4 B5 }
+	Users: {}
+
+Expression Parse Tree:
+F0:
+	Controllers: {}
+	Users: {}
+
+A1:
+	Controllers: {}
+	Users: {}
+B1:
+	Controllers: {}
+	Users: {}
+C1:
+	Controllers: {}
+	Users: {}
+D1:
+	Controllers: {}
+	Users: {}
+E1:
+	Controllers: {B3 B2 B4 B5 }
+	Users: {}
+
+Expression Parse Tree:
+F1:
+	Controllers: {}
+	Users: {}
+
+A2:
+	Controllers: {}
+	Users: {}
+B2:
+	Controllers: {}
+	Users: {E0 E1 }
+C2:
+	Controllers: {}
+	Users: {}
+D2:
+	Controllers: {}
+	Users: {}
+E2:
+	Controllers: {}
+	Users: {}
+F2:
+	Controllers: {}
+	Users: {}
+
+A3:
+	Controllers: {}
+	Users: {}
+B3:
+	Controllers: {}
+	Users: {E0 E1 }
+C3:
+	Controllers: {}
+	Users: {}
+D3:
+	Controllers: {}
+	Users: {}
+E3:
+	Controllers: {}
+	Users: {}
+F3:
+	Controllers: {}
+	Users: {}
+
+A4:
+	Controllers: {}
+	Users: {}
+B4:
+	Controllers: {}
+	Users: {E0 E1 }
+C4:
+	Controllers: {}
+	Users: {}
+D4:
+	Controllers: {}
+	Users: {}
+E4:
+	Controllers: {}
+	Users: {}
+F4:
+	Controllers: {}
+	Users: {}
+
+A5:
+	Controllers: {}
+	Users: {}
+B5:
+	Controllers: {}
+	Users: {E0 E1 }
+C5:
+	Controllers: {}
+	Users: {}
+D5:
+	Controllers: {}
+	Users: {}
+E5:
+	Controllers: {}
+	Users: {}
+F5:
+	Controllers: {}
+	Users: {}
+
+A6:
+	Controllers: {}
+	Users: {}
+B6:
+	Controllers: {}
+	Users: {}
+C6:
+	Controllers: {}
+	Users: {}
+D6:
+	Controllers: {}
+	Users: {}
+E6:
+	Controllers: {}
+	Users: {}
+F6:
+	Controllers: {}
+	Users: {}
+
+A7:
+	Controllers: {}
+	Users: {}
+B7:
+	Controllers: {}
+	Users: {}
+C7:
+	Controllers: {}
+	Users: {}
+D7:
+	Controllers: {}
+	Users: {}
+E7:
+	Controllers: {}
+	Users: {}
+F7:
+	Controllers: {}
+	Users: {}
+
+A8:
+	Controllers: {}
+	Users: {}
+B8:
+	Controllers: {}
+	Users: {}
+C8:
+	Controllers: {}
+	Users: {}
+D8:
+	Controllers: {}
+	Users: {}
+E8:
+	Controllers: {}
+	Users: {}
+F8:
+	Controllers: {}
+	Users: {}
+
+A9:
+	Controllers: {}
+	Users: {}
+B9:
+	Controllers: {}
+	Users: {}
+C9:
+	Controllers: {}
+	Users: {}
+D9:
+	Controllers: {}
+	Users: {}
+E9:
+	Controllers: {}
+	Users: {}
+F9:
+	Controllers: {}
+	Users: {}
+
