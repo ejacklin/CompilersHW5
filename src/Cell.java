@@ -1,5 +1,3 @@
-import jdk.nashorn.internal.parser.Token;
-
 import java.io.*;
 import java.util.ArrayList;
 
@@ -12,6 +10,7 @@ public class Cell {
 
     private String id;
     private boolean error = false;
+    private String errorMessage;
     private CellType type;
     private String display;
     private int value;
@@ -31,7 +30,7 @@ public class Cell {
         this.error = false;
         this.type = CellType.BLANK;
         this.display = "";
-        this.value = 0;
+//        this.value;
         this.left = null;
         this.right = null;
         this.controllers = new ArrayList<>();
@@ -181,8 +180,10 @@ public class Cell {
                     int result = Parse.TraverseTree(u.treeNode);
                     u.display = Integer.toString(result);
                     u.value = result;
+                    u.error = false;
                 }catch(RuntimeException e){
                     u.error = true;
+                    u.errorMessage = "Invalid cell value in equation";
                     u.display = "ERROR";
                 }
             }
@@ -193,15 +194,15 @@ public class Cell {
     public String getId() {return id;}
     public Boolean isError() {return error;}
     public void SetError() {error = true;}
+    public String GetErrorMessage(){return errorMessage;}
+    public void SetErrorMessage( String errorMsg){errorMessage = errorMsg;}
     public CellType getType() {return type;}
     public int getValue() {return value;}
     public int getRow() {return (int)id.charAt(0) - (int)'0';}
     public int getCol() {return (int)id.charAt(1) - (int)'A';}
 
-    public static void DisplayAll(Cell[][] cell, String outputFile) {
-        PrintWriter writer = null;
-        try {
-            writer = new PrintWriter(outputFile, "UTF-8");
+    public static void DisplayAll(Cell[][] cell, PrintWriter writer) {
+
 
             //Display Cells
             String header = String.format("%6s%c%6s%6s%c%6s%6s%c%6s%6s%c%6s%6s%c%6s%6s%c%6s%6s%c","",'|',"A","",
@@ -238,28 +239,29 @@ public class Cell {
                     if(c.getType() == CellType.EXPRESSION) {
                         System.out.println();
                         writer.println();
-                        System.out.println("Expression Parse Tree:");
-                        writer.println("Expression Parse Tree:");
-                        Parse.PrintTree(c.treeNode);
+                        System.out.println("Expression AST:");
+                        writer.println("Expression AST:");
+                        Parse.PrintTree(c.treeNode, 0);
                     }
+                    System.out.println();
+                    writer.println();
                 }
                 System.out.println();
                 writer.println();
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }finally {
-            writer.close();
-        }
+
     }
 
 
     @Override
     public String toString() {
-        String str = id + ":\n\tControllers: {";
+        String str = id + ":";
+        if(error){
+            str += "\n\tCELL ERROR: " + errorMessage + "\n";
+        }
+
+        str += "\n\tControllers: {";
         for(Cell c: controllers){
             str += c.id + " ";
         }
@@ -268,6 +270,8 @@ public class Cell {
             str += c.id + " ";
         }
         str += "}\n";
+
+
         return str;
     }
 

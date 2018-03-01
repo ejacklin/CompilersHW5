@@ -11,11 +11,14 @@ public class Parse {
     static int tokenIdx = 0;
     ArrayList<Token> tokens;
     static Cell[][] sheet;
-    static int indents = 4;
+    static private PrintWriter writer;
+
+    public Parse(PrintWriter writer) {
+        this.writer = writer;
+    }
 
 
-
-    void Parse(ArrayList<Token> tokens, Cell[][] sheet, String id){
+    void ParseTree(ArrayList<Token> tokens, Cell[][] sheet, String id){
         tokenIdx = 0;
         this.sheet = sheet;
         this.tokens = tokens;
@@ -38,7 +41,10 @@ public class Parse {
                 if(node.cell == null){Error();}
                 //check for blank cells, set current cell to error
                 if( node.cell.getType() == Cell.CellType.BLANK){
-                    throw new java.lang.RuntimeException("blank cell!");
+                    throw new java.lang.RuntimeException("Blank");
+                }
+                if( node.cell.getType() == Cell.CellType.TEXT){
+                    throw new java.lang.RuntimeException("Text");
                 }
                 return node.cell.getValue();
             case ConstK:
@@ -68,45 +74,15 @@ public class Parse {
 
     }
 
-    static void PrintTree(TreeNode node){
+    static void PrintTree(TreeNode node, int level){
         if(node == null){ return;}
-
-        switch(node.kind){
-            case IdK:
-                System.out.println(node.toString());
-                break;
-            case ConstK:
-                System.out.println(node.toString());
-                break;
-            case OpK:
-                System.out.println(node.toString());
-                switch (node.op){
-                    case PLUS:
-                        PrintTree(node.child[0]);
-                        PrintTree(node.child[1]);
-                        break;
-                    case MINUS:
-                        System.out.println(node.toString());
-                       PrintTree(node.child[0]);
-                        PrintTree(node.child[1]);
-                        break;
-                    case TIMES:
-                        PrintTree(node.child[0]);
-                        PrintTree(node.child[1]);
-                        break;
-                    case DIVIDE:
-                        PrintTree(node.child[0]);
-                        PrintTree(node.child[1]);
-                        break;
-                    case LPAREN:
-                        System.out.println(" " + "(" + " ");
-                        break;
-                    case RPAREN:
-                        System.out.print(" " + ")" + " ");
-                        break;
-                }
-                break;
-        }
+        //visit node, print, then left node, then right
+        node.lineno = level;
+        System.out.println(node.toString());
+        writer.println(node.toString());
+        if(node.HasChildren()){level++;}
+        PrintTree(node.child[0], level);
+        PrintTree(node.child[1], level);
     }
 
     void Match(Token.TokenType expected){
@@ -146,7 +122,6 @@ public class Parse {
         TreeNode t = Factor();
         while((token.tokenType == Token.TokenType.TIMES) ||(token.tokenType == Token.TokenType.DIVIDE)){
             TreeNode p = new TreeNode(TreeNode.ExpKind.OpK);
-            p.lineno = indents;
             p.child[0] = t;
             p.op = token.tokenType;
             t = p;
@@ -162,13 +137,11 @@ public class Parse {
             case NUM:
                 treeNode = new TreeNode(TreeNode.ExpKind.ConstK);
                 treeNode.value = token.value;
-                treeNode.lineno = 2 * indents;
                 Match(Token.TokenType.NUM);
                 break;
             case ID:
                 treeNode = new TreeNode(TreeNode.ExpKind.IdK);
                 treeNode.name = token.id;
-                treeNode.lineno = 2 * indents;
                 Cell controllerCell = Cell.GetCell(treeNode.name,sheet);
                 treeNode.cell = controllerCell;
                 cell.AddController(controllerCell);

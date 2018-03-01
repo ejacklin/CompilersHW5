@@ -1,8 +1,5 @@
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -13,8 +10,11 @@ public class Scanner {
     private Cell[][] sheet;
     private Cell cell;
 
-    public Cell[][] CreateTable(String fileName, Cell[][] sheet){
+    private PrintWriter writer = null;
+
+    public Cell[][] CreateTable(String fileName, Cell[][] sheet, PrintWriter writer){
         this.sheet = sheet;
+        this.writer = writer;
         String str;
         FileReader fr = null;
         BufferedReader br;
@@ -64,21 +64,27 @@ public class Scanner {
         try {
             row = Integer.parseInt(String.valueOf(readRow));
         }catch(NumberFormatException e){
-            System.out.println("Error parsing row value, not a number");
-            e.printStackTrace();
+            String err = "Error parsing: " + line + "\n";
+            err += "Row value, not a number";
+            System.out.println(err);
+            writer.println(err);
         }
 
         //try to access cell, throw out of bounds if unavailable
         try {
             cell = sheet[row][col];
         }catch (ArrayIndexOutOfBoundsException e){
+            String err = "Error parsing: " + line + "\n";
+
             if(row > 9){
-                System.out.println("There are only 10 rows");
+               err += "There are only 10 rows";
             }
             if(col > 5){
-                System.out.println("There are only 6 rows");
+                err += "There are only 6 rows";
             }
-            e.printStackTrace();
+            System.out.println(err);
+            writer.println(err);
+            return;
         }
 
         try{
@@ -117,8 +123,8 @@ public class Scanner {
                     break;
                 case 6:     // '='
                     ArrayList<Token> tokens = EquationTokens(lineChars);
-                    Parse parse = new Parse();
-                    parse.Parse(tokens, sheet, cell.getId());
+                    Parse parse = new Parse(writer);
+                    parse.ParseTree(tokens, sheet, cell.getId());
                     break;
                 case 7:     // ' " '
                     TextToken(lineChars);
@@ -126,6 +132,7 @@ public class Scanner {
                 case 8:
                     System.out.println("Comments don't belong in cells");
                     cell.SetError();
+                    cell.SetErrorMessage("Comments don't belong in cells");
                     idx = lineChars.length;
                     break;
                 default:

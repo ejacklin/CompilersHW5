@@ -11,6 +11,7 @@ public class TreeNode {
     public ExpKind kind;
     public Cell cell;
     public int lineno = 0;
+    private int INDENT = 4;
 
 
 
@@ -22,13 +23,13 @@ public class TreeNode {
     @Override
     public String toString() {
         String line = "";
-        String buff = "        ";
+        String buff = "                                                  ";
         if(lineno != 0) {
-            line += buff.substring(0,lineno);
+            line += buff.substring(0,lineno*INDENT);
         }
         switch (kind){
             case OpK:
-                line +="TYPE: ";
+                line +="<OP>: ";
                 switch (op){
                     case PLUS:
                         line += "PLUS";
@@ -45,10 +46,10 @@ public class TreeNode {
                 }
                 break;
             case ConstK:
-                line += "VALUE: " + Integer.toString(value);
+                line += "<VALUE>: " + Integer.toString(value);
                 break;
             case IdK:
-                line += "VALUE: " + Integer.toString(cell.getValue());
+                line += "<VALUE>: " + cell.getId() + " = "+ Integer.toString(cell.getValue());
                 break;
 
         }
@@ -57,4 +58,7 @@ public class TreeNode {
 
     enum ExpKind {OpK, ConstK, IdK}
 
+    public boolean HasChildren(){
+        return (child[0] != null) || (child[1] != null);
+    }
 }
