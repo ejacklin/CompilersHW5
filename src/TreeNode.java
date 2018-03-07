@@ -44,9 +44,12 @@ public class TreeNode {
                         line += "DIVIDE";
                         break;
                 }
+                line += "\t <VALUE>: " + Integer.toString(value);
                 break;
             case ConstK:
-                line += "<VALUE>: " + Integer.toString(value);
+                String t;
+                if(cell.GetNumberType() == Cell.NumberType.INTEGER){t = "Integer";}else{t = "Double";}
+                line += "<VALUE>: " + Integer.toString(value) + "<TYPE>: " + t;
                 break;
             case IdK:
                 line += "<VALUE>: " + cell.getId() + " = "+ Integer.toString(cell.getValue());

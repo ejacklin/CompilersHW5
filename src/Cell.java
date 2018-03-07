@@ -14,6 +14,7 @@ public class Cell {
     private CellType type;
     private String display;
     private int value;
+    private double doubleValue;
     private Operation op;
     private static boolean initialized;
     private Cell left;
@@ -22,6 +23,25 @@ public class Cell {
     private ArrayList<Cell> users;
     private ArrayList<Cell> oldConts;
     private TreeNode treeNode;
+    static private ArrayList<String> validIds;
+    private int calcValueInt;
+    private double calcValueDouble;
+    private NumberType numberType;
+
+    public int GetCalculatedValue() {
+        return calcValueInt;
+    }
+
+    public void SetCalculatedValue(int calculatedValue) {
+        this.calcValueInt = calculatedValue;
+    }
+
+
+
+    public NumberType GetNumberType() {
+        return numberType;
+    }
+
 
 
 
@@ -35,6 +55,7 @@ public class Cell {
         this.right = null;
         this.controllers = new ArrayList<>();
         this.users = new ArrayList<>();
+        this.validIds = new ArrayList<>();
         this.oldConts = null;
     }
 
@@ -45,6 +66,7 @@ public class Cell {
             for (int j = 0; j < 6; ++j) {
                 sheet[i][j] = new Cell();
                 sheet[i][j].setId(i, j);
+                validIds.add("" + (char)(j+'A')+(char)(i + '0'));
             }
         }
         initialized = true;
@@ -60,6 +82,7 @@ public class Cell {
 
     public void SetBlankCell(){
         this.error = false;
+        this.numberType = NumberType.NONE;
         this.type = CellType.BLANK;
         this.display = "";
         this.value = 0;
@@ -72,6 +95,7 @@ public class Cell {
     public void SetTXTCell(String txt) {
         error = false;
         type = CellType.TEXT;
+        numberType = NumberType.NONE;
         display = txt;
         value = 0;
         left = null;
@@ -80,25 +104,41 @@ public class Cell {
         UpdateCells();
     }
 
-    public void SetNUMCell(int num, int sign) {
+    public void SetNUMCell(int num) {
         error = false;
         type = CellType.NUMBER;
-        value = num * sign;
+        value = num;
         display = Integer.toString(value);
         left = null;
         op = Operation.NONE;
         right = null;
+        numberType = NumberType.INTEGER;
+
         UpdateCells();
     }
 
-    public void SetNUMCell(String num, int sign) {
+    public void SetNUMCell(double num) {
         error = false;
         type = CellType.NUMBER;
-        value = Integer.parseInt(num) * sign;
+        doubleValue = num;
+        display = Double.toString(doubleValue);
+        left = null;
+        op = Operation.NONE;
+        right = null;
+        numberType = NumberType.DOUBLE;
+
+        UpdateCells();
+    }
+
+    public void SetNUMCell(String num, boolean isInteger) {
+        error = false;
+        type = CellType.NUMBER;
+        value = Integer.parseInt(num);
         display = Integer.toString(value);
         left = null;
         op = Operation.NONE;
         right = null;
+        numberType = NumberType.INTEGER;
         UpdateCells();
     }
 
@@ -116,6 +156,7 @@ public class Cell {
 
     public void SetEXPCell(TreeNode treeNode) {
         error = false;
+        numberType = NumberType.NONE;
         type = CellType.EXPRESSION;
         this.treeNode = treeNode;
         CalculateExpression();
@@ -193,13 +234,14 @@ public class Cell {
     public void setId(int row, int col) {this.id = "" + (char)(col+'A')+(char)(row + '0');}
     public String getId() {return id;}
     public Boolean isError() {return error;}
-    public void SetError() {error = true;}
+    public void SetError() {error = true; display = "ERROR";}
     public String GetErrorMessage(){return errorMessage;}
     public void SetErrorMessage( String errorMsg){errorMessage = errorMsg;}
     public CellType getType() {return type;}
     public int getValue() {return value;}
     public int getRow() {return (int)id.charAt(0) - (int)'0';}
     public int getCol() {return (int)id.charAt(1) - (int)'A';}
+
 
     public static void DisplayAll(Cell[][] cell, PrintWriter writer) {
 
@@ -257,19 +299,24 @@ public class Cell {
     @Override
     public String toString() {
         String str = id + ":";
+
         if(error){
             str += "\n\tCELL ERROR: " + errorMessage + "\n";
         }
-
-        str += "\n\tControllers: {";
-        for(Cell c: controllers){
-            str += c.id + " ";
+        if(type != CellType.BLANK) {
+            str += "\n\tValue: " + display;
+            str += "\n\tControllers: {";
+            for (Cell c : controllers) {
+                str += c.id + " ";
+            }
+            str += "}\n\tUsers: {";
+            for (Cell c : users) {
+                str += c.id + " ";
+            }
+            str += "}\n";
+        }else{
+            str += " EMPTY";
         }
-        str += "}\n\tUsers: {";
-        for(Cell c: users){
-            str += c.id + " ";
-        }
-        str += "}\n";
 
 
         return str;
@@ -284,6 +331,10 @@ public class Cell {
 
     public enum Operation {
         NONE, ADD, SUBTRACT, MULTIPLY, DIVIDE
+    }
+
+    public enum NumberType{
+        DOUBLE, INTEGER, NONE
     }
 
 

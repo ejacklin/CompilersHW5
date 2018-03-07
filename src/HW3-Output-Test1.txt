@@ -1,0 +1,110 @@
+      |     A      |     B      |     C      |     D      |     E      |     F      |
+   0  |       ERROR|            |            |            |            |            |
+   1  |            |           2|            |            |            |            |
+   2  |            |         -10|            |            |            |            |
+   3  |            |            |            |            |            |            |
+   4  |            |            |            |       ERROR|            |            |
+   5  |            |            |            |            |            |            |
+   6  |            |            |            |            |            |            |
+   7  |            |            |            |            |            |            |
+   8  |            |            |            |            |            |            |
+   9  |            |            |            |            |            |            |
+
+A0:
+	CELL ERROR: null
+
+	Controllers: {B1 B2 }
+	Users: {}
+
+Expression AST:
+<OP>: TIMES
+    <OP>: TIMES
+        <VALUE>: 25
+        <VALUE>: B1 = 2
+    <VALUE>: B2 = -10
+
+B0: EMPTY
+C0: EMPTY
+D0: EMPTY
+E0: EMPTY
+F0: EMPTY
+
+A1: EMPTY
+B1:
+	Controllers: {}
+	Users: {A0 }
+
+Expression AST:
+<VALUE>: 2
+
+C1: EMPTY
+D1: EMPTY
+E1: EMPTY
+F1: EMPTY
+
+A2: EMPTY
+B2:
+	Controllers: {}
+	Users: {A0 }
+
+Expression AST:
+<OP>: MINUS
+    <VALUE>: 0
+    <VALUE>: 10
+
+C2: EMPTY
+D2: EMPTY
+E2: EMPTY
+F2: EMPTY
+
+A3: EMPTY
+B3: EMPTY
+C3: EMPTY
+D3: EMPTY
+E3: EMPTY
+F3: EMPTY
+
+A4: EMPTY
+B4: EMPTY
+C4: EMPTY
+D4:
+	CELL ERROR: Token ID does not exist
+ EMPTY
+E4: EMPTY
+F4: EMPTY
+
+A5: EMPTY
+B5: EMPTY
+C5: EMPTY
+D5: EMPTY
+E5: EMPTY
+F5: EMPTY
+
+A6: EMPTY
+B6: EMPTY
+C6: EMPTY
+D6: EMPTY
+E6: EMPTY
+F6: EMPTY
+
+A7: EMPTY
+B7: EMPTY
+C7: EMPTY
+D7: EMPTY
+E7: EMPTY
+F7: EMPTY
+
+A8: EMPTY
+B8: EMPTY
+C8: EMPTY
+D8: EMPTY
+E8: EMPTY
+F8: EMPTY
+
+A9: EMPTY
+B9: EMPTY
+C9: EMPTY
+D9: EMPTY
+E9: EMPTY
+F9: EMPTY
+

@@ -1,7 +1,7 @@
       |     A      |     B      |     C      |     D      |     E      |     F      |
-   0  |         Y =|       aXX +|      bX + C|           =|          50|            |
-   1  |         Y =|      (aX+B)|        *X+C|           =|          50|            |
-   2  |         X =|           5|            |            |            |            |
+   0  |         Y =|       aXX +|      bX + C|           =|         -10|            |
+   1  |         Y =|      (aX+B)|        *X+C|           =|         -10|            |
+   2  |         X =|         4.5|            |            |            |            |
    3  |         a =|           2|            |            |            |            |
    4  |         b =|           2|            |            |            |            |
    5  |         c =|         -10|            |            |            |            |
@@ -31,21 +31,21 @@ D0:
 	Users: {}
 
 E0:
-	Value: 50
+	Value: -10
 	Controllers: {B3 B2 B4 B5 }
 	Users: {}
 
 Expression AST:
-<OP>: PLUS	 <VALUE>: 50
-    <OP>: PLUS	 <VALUE>: 60
-        <OP>: TIMES	 <VALUE>: 50
-            <OP>: TIMES	 <VALUE>: 10
+<OP>: PLUS	 <VALUE>: -10
+    <OP>: PLUS	 <VALUE>: 0
+        <OP>: TIMES	 <VALUE>: 0
+            <OP>: TIMES	 <VALUE>: 0
                 <VALUE>: B3 = 2
-                <VALUE>: B2 = 5
-            <VALUE>: B2 = 5
-        <OP>: TIMES	 <VALUE>: 10
+                <VALUE>: B2 = 0
+            <VALUE>: B2 = 0
+        <OP>: TIMES	 <VALUE>: 0
             <VALUE>: B4 = 2
-            <VALUE>: B2 = 5
+            <VALUE>: B2 = 0
     <VALUE>: B5 = -10
 
 F0: EMPTY
@@ -71,19 +71,19 @@ D1:
 	Users: {}
 
 E1:
-	Value: 50
+	Value: -10
 	Controllers: {B3 B2 B4 B5 }
 	Users: {}
 
 Expression AST:
-<OP>: PLUS	 <VALUE>: 50
-    <OP>: TIMES	 <VALUE>: 60
-        <OP>: PLUS	 <VALUE>: 12
-            <OP>: TIMES	 <VALUE>: 10
+<OP>: PLUS	 <VALUE>: -10
+    <OP>: TIMES	 <VALUE>: 0
+        <OP>: PLUS	 <VALUE>: 2
+            <OP>: TIMES	 <VALUE>: 0
                 <VALUE>: B3 = 2
-                <VALUE>: B2 = 5
+                <VALUE>: B2 = 0
             <VALUE>: B4 = 2
-        <VALUE>: B2 = 5
+        <VALUE>: B2 = 0
     <VALUE>: B5 = -10
 
 F1: EMPTY
@@ -94,7 +94,7 @@ A2:
 	Users: {}
 
 B2:
-	Value: 5
+	Value: 4.5
 	Controllers: {}
 	Users: {E0 E1 }
 

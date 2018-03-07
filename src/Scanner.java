@@ -1,6 +1,8 @@
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Erin on 2/17/2018.
@@ -28,7 +30,7 @@ public class Scanner {
 
         try {
             while ((str = br.readLine()) != null) {
-                System.out.println(str);
+//                System.out.println(str);
                 if(!str.isEmpty()) {
                     ParseLine(str);
                 }
@@ -68,6 +70,7 @@ public class Scanner {
             err += "Row value, not a number";
             System.out.println(err);
             writer.println(err);
+            return;
         }
 
         //try to access cell, throw out of bounds if unavailable
@@ -77,7 +80,7 @@ public class Scanner {
             String err = "Error parsing: " + line + "\n";
 
             if(row > 9){
-               err += "There are only 10 rows";
+                err += "There are only 10 rows";
             }
             if(col > 5){
                 err += "There are only 6 rows";
@@ -89,12 +92,15 @@ public class Scanner {
 
         try{
             if(AsciiTable.ASCII[lineChars[idx]] != 0){
-                System.out.println("Must be a space between cell location and cell entry");
+
                 throw new IllegalArgumentException("INVALID CELL");
             }
         } catch(IllegalArgumentException e){
-            e.getMessage();
-            System.exit(-1);
+            String err = "Error parsing: " + line + "\n";
+            err += "Must be a space between cell location and cell entry";
+            System.out.println(err);
+            writer.println(err);
+            return;
         }
 
         //check for "clear" line
@@ -114,12 +120,9 @@ public class Scanner {
                 case 0: //whitespace
                     idx++;
                     break;
+                case 2:
                 case 3:     //number
-                    NumToken(lineChars, 1);
-                    break;
-                case 2:     // only thing this can be is '-'
-                    idx++;
-                    NumToken(lineChars, -1);
+                    NumToken(lineChars);
                     break;
                 case 6:     // '='
                     ArrayList<Token> tokens = EquationTokens(lineChars);
@@ -143,14 +146,36 @@ public class Scanner {
     }
 
 
-    private void NumToken(char[] lineChars, int sign){
-        String num = "";
-        while(AsciiTable.ASCII[lineChars[idx]] == 3){   //assume there could be spaces after
-            num += lineChars[idx];
+    private void NumToken(char[] lineChars) {
+        String number = "";
+        String pp = "^(-)?(\\d)+(\\.(\\d)+)?(([Ee])?([+-])?(\\d)+)?$";
+        Pattern pattern = Pattern.compile(pp);
+
+        while (AsciiTable.ASCII[lineChars[idx]] != 0) {   //assume there could be spaces after
+            number += lineChars[idx];
             idx++;
-            if(idx > lineChars.length-1) {break;}
+            if (idx > lineChars.length - 1) {
+                break;
+            }
         }
-        cell.SetNUMCell(num, sign);
+        Matcher matcher = pattern.matcher(number);
+        if (!matcher.matches()){
+            System.out.println("Error in cell, not a number");
+            cell.SetError();
+            cell.SetErrorMessage("Not able to parse number");
+        }else{
+            if((matcher.group(3) != null) || (matcher.group(6) != null)){
+                Double d = Double.parseDouble(number);
+                cell.SetNUMCell(d);
+            }else{
+                Integer i = Integer.parseInt(number);
+                cell.SetNUMCell(i);
+            }
+        }
+
+
+
+
     }
 
     private void TextToken(char[] lineChars){
@@ -161,13 +186,12 @@ public class Scanner {
             idx++;
             if(idx > lineChars.length-1) {break;}
         }
-
         cell.SetTXTCell(word);
-
         if (word.length() > 6) {
             System.out.println("Strings can only be max 6 characters");
             cell.SetError();
         }
+
         idx = lineChars.length;
     }
 
@@ -219,6 +243,9 @@ public class Scanner {
                     break;
                 default:
                     System.out.println("Error parsing equation");
+                    cell.SetError();
+                    cell.SetErrorMessage("Token ID does not exist");
+                    idx = lineChars.length;
                     break;
             }
         }
@@ -241,6 +268,10 @@ public class Scanner {
             idx++;
             if(idx > lineChars.length-1) {break;}
         }
+//        if(!cell.VerifyValidID(id)){
+//            cell.SetError();
+//            cell.SetErrorMessage("Token ID does not exist");
+//        }
         return id;
     }
 }

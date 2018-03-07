@@ -1,0 +1,9 @@
+# This test file is associated with the 605.415 Compiler Design course
+# Homework Assignment 3
+
+A0 = 25*B1 * B2
+
+B1 = 2
+B2 = 0-10
+
+D4 = xyz

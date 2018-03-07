@@ -1,22 +1,24 @@
       |     A      |     B      |     C      |     D      |     E      |     F      |
-   0  |         X =|           5|            |       X^2 =|          25|            |
-   1  |         a =|           2|            |       aXX =|          50|            |
-   2  |         b =|           2|            |        bX =|          10|            |
-   3  |         c =|         -10|            |         sum|          60|            |
+   0  |       ERROR|            |            |            |            |            |
+   1  |            |            |            |            |            |            |
+   2  |            |            |            |            |            |            |
+   3  |            |            |            |            |            |            |
    4  |            |            |            |            |            |            |
-   5  |         Y =|            |          50|            |            |            |
+   5  |            |            |            |            |            |            |
    6  |            |            |            |            |            |            |
    7  |            |            |            |            |            |            |
    8  |            |            |            |            |            |            |
    9  |            |            |            |            |            |            |
 
 A0:
+	CELL ERROR: null
+
 	Controllers: {}
 	Users: {}
 
 B0:
 	Controllers: {}
-	Users: {E0 E2 }
+	Users: {}
 
 C0:
 	Controllers: {}
@@ -27,13 +29,8 @@ D0:
 	Users: {}
 
 E0:
-	Controllers: {B0 }
-	Users: {E1 }
-
-Expression AST:
-<OP>: TIMES
-    <VALUE>: B0 = 5
-    <VALUE>: B0 = 5
+	Controllers: {}
+	Users: {}
 
 F0:
 	Controllers: {}
@@ -46,7 +43,7 @@ A1:
 
 B1:
 	Controllers: {}
-	Users: {E1 }
+	Users: {}
 
 C1:
 	Controllers: {}
@@ -57,13 +54,8 @@ D1:
 	Users: {}
 
 E1:
-	Controllers: {B1 E0 }
-	Users: {E3 }
-
-Expression AST:
-<OP>: TIMES
-    <VALUE>: B1 = 2
-    <VALUE>: E0 = 25
+	Controllers: {}
+	Users: {}
 
 F1:
 	Controllers: {}
@@ -76,7 +68,7 @@ A2:
 
 B2:
 	Controllers: {}
-	Users: {E2 }
+	Users: {}
 
 C2:
 	Controllers: {}
@@ -87,13 +79,8 @@ D2:
 	Users: {}
 
 E2:
-	Controllers: {B2 B0 }
-	Users: {E3 }
-
-Expression AST:
-<OP>: TIMES
-    <VALUE>: B2 = 2
-    <VALUE>: B0 = 5
+	Controllers: {}
+	Users: {}
 
 F2:
 	Controllers: {}
@@ -106,7 +93,7 @@ A3:
 
 B3:
 	Controllers: {}
-	Users: {C5 }
+	Users: {}
 
 C3:
 	Controllers: {}
@@ -117,13 +104,8 @@ D3:
 	Users: {}
 
 E3:
-	Controllers: {E1 E2 }
-	Users: {C5 }
-
-Expression AST:
-<OP>: PLUS
-    <VALUE>: E1 = 50
-    <VALUE>: E2 = 10
+	Controllers: {}
+	Users: {}
 
 F3:
 	Controllers: {}
@@ -164,13 +146,8 @@ B5:
 	Users: {}
 
 C5:
-	Controllers: {E3 B3 }
+	Controllers: {}
 	Users: {}
-
-Expression AST:
-<OP>: PLUS
-    <VALUE>: E3 = 60
-    <VALUE>: B3 = -10
 
 D5:
 	Controllers: {}

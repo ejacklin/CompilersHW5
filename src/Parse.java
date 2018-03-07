@@ -25,6 +25,7 @@ public class Parse {
         cell = Cell.GetCell(id, sheet);
         cell.ClearControllers();
         TreeNode treeNode;
+        if(tokens.isEmpty()){System.out.println("No tokens for parse tree.");return;}
         token = tokens.get(0);
         treeNode = Exp();
         cell.SetEXPCell(treeNode);
@@ -32,7 +33,8 @@ public class Parse {
 
     static int TraverseTree(TreeNode node){
 
-        if(node == null){ return -1;}
+        if(node == null){
+            return -1;}
 
         switch(node.kind){
             case IdK:
@@ -46,27 +48,28 @@ public class Parse {
                 if( node.cell.getType() == Cell.CellType.TEXT){
                     throw new java.lang.RuntimeException("Text");
                 }
+                System.out.println(node.cell.getValue());
                 return node.cell.getValue();
             case ConstK:
                 return node.value;
             case OpK:
                 switch (node.op){
+//                    if((node.child[0].cell.GetNumberType() == Cell.NumberType.DOUBLE) ||
+//                            (node.child[0].cell.GetNumberType() == Cell.NumberType.DOUBLE)){
+//
+//                    }
                     case PLUS:
-                        return TraverseTree(node.child[0]) + TraverseTree(node.child[1]);
+                        node.value = TraverseTree(node.child[0]) + TraverseTree(node.child[1]);
+                        return node.value;
                     case MINUS:
-                        return TraverseTree(node.child[0]) - TraverseTree(node.child[1]);
+                        node.value = TraverseTree(node.child[0]) - TraverseTree(node.child[1]);
+                        return node.value;
                     case TIMES:
-//                        System.out.print(" " + "*" + " ");
-                        return TraverseTree(node.child[0]) * TraverseTree(node.child[1]);
+                        node.value = TraverseTree(node.child[0]) * TraverseTree(node.child[1]);
+                        return node.value;
                     case DIVIDE:
-//                        System.out.print(" " + "/" + " ");
-                        return TraverseTree(node.child[0]) / TraverseTree(node.child[1]);
-                    case LPAREN:
-//                        System.out.print(" " + "(" + " ");
-                        break;
-                    case RPAREN:
-//                        System.out.print(" " + ")" + " ");
-                        break;
+                        node.value = TraverseTree(node.child[0]) / TraverseTree(node.child[1]);
+                        return node.value;
                 }
                 break;
         }
