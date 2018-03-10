@@ -13,8 +13,8 @@ public class Cell {
     private String errorMessage;
     private CellType type;
     private String display;
-    private int value;
-    private double doubleValue;
+    public int value;
+    public double doubleValue;
     private Operation op;
     private static boolean initialized;
     private Cell left;
@@ -24,23 +24,11 @@ public class Cell {
     private ArrayList<Cell> oldConts;
     private TreeNode treeNode;
     static private ArrayList<String> validIds;
-    private int calcValueInt;
-    private double calcValueDouble;
-    private NumberType numberType;
-
-    public int GetCalculatedValue() {
-        return calcValueInt;
-    }
-
-    public void SetCalculatedValue(int calculatedValue) {
-        this.calcValueInt = calculatedValue;
-    }
+    public NumberType numberType;
 
 
 
-    public NumberType GetNumberType() {
-        return numberType;
-    }
+
 
 
 
@@ -239,8 +227,16 @@ public class Cell {
     public void SetErrorMessage( String errorMsg){errorMessage = errorMsg;}
     public CellType getType() {return type;}
     public int getValue() {return value;}
+    public void setValue(double val){doubleValue = val;value = (int) val;}
+    public void setValue(int val){doubleValue = (double) val;value = val;}
     public int getRow() {return (int)id.charAt(0) - (int)'0';}
     public int getCol() {return (int)id.charAt(1) - (int)'A';}
+    public NumberType GetNumberType() {
+        return numberType;
+    }
+    public void SetNumberType(NumberType numberType) {
+        this.numberType = numberType;
+    }
 
 
     public static void DisplayAll(Cell[][] cell, PrintWriter writer) {
@@ -305,6 +301,11 @@ public class Cell {
         }
         if(type != CellType.BLANK) {
             str += "\n\tValue: " + display;
+            if(numberType == NumberType.INTEGER){
+                str += " (int) ";
+            }else if(numberType == NumberType.DOUBLE){
+                str += " (double) ";
+            }else{str += " (poop) ";}
             str += "\n\tControllers: {";
             for (Cell c : controllers) {
                 str += c.id + " ";

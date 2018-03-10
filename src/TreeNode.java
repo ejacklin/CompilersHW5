@@ -8,11 +8,12 @@ public class TreeNode {
     public Token.TokenType op;
     public String name;
     public int value;
+    public double doubleValue;
     public ExpKind kind;
     public Cell cell;
     public int lineno = 0;
     private int INDENT = 4;
-
+    public Cell.NumberType numberType;
 
 
     TreeNode(ExpKind kind){
@@ -45,6 +46,11 @@ public class TreeNode {
                         break;
                 }
                 line += "\t <VALUE>: " + Integer.toString(value);
+//                if(cell.GetNumberType() == Cell.NumberType.INTEGER){
+//                    line += " (int) ";
+//                }else if(cell.GetNumberType() == Cell.NumberType.DOUBLE){
+//                    line += " (double) ";
+//                }
                 break;
             case ConstK:
                 String t;

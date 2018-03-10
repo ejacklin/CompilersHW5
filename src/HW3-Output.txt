@@ -1,6 +1,6 @@
       |     A      |     B      |     C      |     D      |     E      |     F      |
-   0  |         Y =|       aXX +|      bX + C|           =|          50|            |
-   1  |         Y =|      (aX+B)|        *X+C|           =|          50|            |
+   0  |         Y =|       aXX +|      bX + C|           =|       ERROR|            |
+   1  |         Y =|      (aX+B)|        *X+C|           =|       ERROR|            |
    2  |         X =|           5|            |            |            |            |
    3  |         a =|           2|            |            |            |            |
    4  |         b =|           2|            |            |            |            |
@@ -11,39 +11,41 @@
    9  |            |            |            |            |            |            |
 
 A0:
-	Value: Y =
+	Value: Y = (poop) 
 	Controllers: {}
 	Users: {}
 
 B0:
-	Value: aXX +
+	Value: aXX + (poop) 
 	Controllers: {}
 	Users: {}
 
 C0:
-	Value: bX + C
+	Value: bX + C (poop) 
 	Controllers: {}
 	Users: {}
 
 D0:
-	Value: =
+	Value: = (poop) 
 	Controllers: {}
 	Users: {}
 
 E0:
-	Value: 50
+	CELL ERROR: Invalid cell value in equation
+
+	Value: ERROR (poop) 
 	Controllers: {B3 B2 B4 B5 }
 	Users: {}
 
 Expression AST:
-<OP>: PLUS	 <VALUE>: 50
-    <OP>: PLUS	 <VALUE>: 60
-        <OP>: TIMES	 <VALUE>: 50
-            <OP>: TIMES	 <VALUE>: 10
+<OP>: PLUS	 <VALUE>: 0
+    <OP>: PLUS	 <VALUE>: 0
+        <OP>: TIMES	 <VALUE>: 0
+            <OP>: TIMES	 <VALUE>: 0
                 <VALUE>: B3 = 2
                 <VALUE>: B2 = 5
             <VALUE>: B2 = 5
-        <OP>: TIMES	 <VALUE>: 10
+        <OP>: TIMES	 <VALUE>: 0
             <VALUE>: B4 = 2
             <VALUE>: B2 = 5
     <VALUE>: B5 = -10
@@ -51,35 +53,37 @@ Expression AST:
 F0: EMPTY
 
 A1:
-	Value: Y =
+	Value: Y = (poop) 
 	Controllers: {}
 	Users: {}
 
 B1:
-	Value: (aX+B)
+	Value: (aX+B) (poop) 
 	Controllers: {}
 	Users: {}
 
 C1:
-	Value: *X+C
+	Value: *X+C (poop) 
 	Controllers: {}
 	Users: {}
 
 D1:
-	Value: =
+	Value: = (poop) 
 	Controllers: {}
 	Users: {}
 
 E1:
-	Value: 50
+	CELL ERROR: Invalid cell value in equation
+
+	Value: ERROR (poop) 
 	Controllers: {B3 B2 B4 B5 }
 	Users: {}
 
 Expression AST:
-<OP>: PLUS	 <VALUE>: 50
-    <OP>: TIMES	 <VALUE>: 60
-        <OP>: PLUS	 <VALUE>: 12
-            <OP>: TIMES	 <VALUE>: 10
+<OP>: PLUS	 <VALUE>: 0
+    <OP>: TIMES	 <VALUE>: 0
+        <OP>: PLUS	 <VALUE>: 0
+            <OP>: TIMES	 <VALUE>: 0
                 <VALUE>: B3 = 2
                 <VALUE>: B2 = 5
             <VALUE>: B4 = 2
@@ -89,12 +93,12 @@ Expression AST:
 F1: EMPTY
 
 A2:
-	Value: X =
+	Value: X = (poop) 
 	Controllers: {}
 	Users: {}
 
 B2:
-	Value: 5
+	Value: 5 (int) 
 	Controllers: {}
 	Users: {E0 E1 }
 
@@ -104,12 +108,12 @@ E2: EMPTY
 F2: EMPTY
 
 A3:
-	Value: a =
+	Value: a = (poop) 
 	Controllers: {}
 	Users: {}
 
 B3:
-	Value: 2
+	Value: 2 (int) 
 	Controllers: {}
 	Users: {E0 E1 }
 
@@ -119,12 +123,12 @@ E3: EMPTY
 F3: EMPTY
 
 A4:
-	Value: b =
+	Value: b = (poop) 
 	Controllers: {}
 	Users: {}
 
 B4:
-	Value: 2
+	Value: 2 (int) 
 	Controllers: {}
 	Users: {E0 E1 }
 
@@ -134,12 +138,12 @@ E4: EMPTY
 F4: EMPTY
 
 A5:
-	Value: c =
+	Value: c = (poop) 
 	Controllers: {}
 	Users: {}
 
 B5:
-	Value: -10
+	Value: -10 (int) 
 	Controllers: {}
 	Users: {E0 E1 }
 

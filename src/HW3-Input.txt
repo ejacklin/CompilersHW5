@@ -1,8 +1,6 @@
 # This input files is for the 605.415 Compiler Design course
 # Homework Assignment 3
 
-A7 
-
 A0 "Y ="
 B0 "aXX +
 C0 "bX + C"

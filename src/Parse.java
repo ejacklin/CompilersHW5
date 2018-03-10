@@ -33,8 +33,7 @@ public class Parse {
 
     static int TraverseTree(TreeNode node){
 
-        if(node == null){
-            return -1;}
+        if(node == null){return -1;}
 
         switch(node.kind){
             case IdK:
@@ -48,19 +47,50 @@ public class Parse {
                 if( node.cell.getType() == Cell.CellType.TEXT){
                     throw new java.lang.RuntimeException("Text");
                 }
-                System.out.println(node.cell.getValue());
                 return node.cell.getValue();
             case ConstK:
                 return node.value;
             case OpK:
+
+
+
+                Cell.NumberType type = Cell.NumberType.NONE;
+
+                Cell.NumberType child0Type = node.child[0].cell.GetNumberType();
+                Cell.NumberType child1Type = node.child[1].cell.GetNumberType();
+
+                if((child0Type == Cell.NumberType.DOUBLE) && (child1Type == Cell.NumberType.DOUBLE)){
+                    node.cell.SetNumberType(Cell.NumberType.DOUBLE);
+                    type = Cell.NumberType.DOUBLE;
+                }else if(( child0Type == Cell.NumberType.DOUBLE) && (child1Type == Cell.NumberType.INTEGER)){
+                    type = Cell.NumberType.DOUBLE;
+                    node.child[1].cell.SetNumberType(Cell.NumberType.DOUBLE);
+                    node.child[1].cell.setValue((double)( node.child[1].cell.value));
+                    node.cell.SetNumberType(Cell.NumberType.DOUBLE);
+                }else if(( child0Type == Cell.NumberType.INTEGER) && (child1Type == Cell.NumberType.DOUBLE)){
+                    type = Cell.NumberType.DOUBLE;
+                    node.child[0].cell.SetNumberType(Cell.NumberType.DOUBLE);
+                    node.child[0].cell.setValue((double)( node.child[0].cell.value));
+                    node.cell.SetNumberType(Cell.NumberType.DOUBLE);
+                }else if(( child0Type == Cell.NumberType.INTEGER) && (child1Type == Cell.NumberType.INTEGER)){
+                    type = Cell.NumberType.INTEGER;
+                    node.cell.SetNumberType(Cell.NumberType.INTEGER);
+                }
+
+
+
+
+
+
                 switch (node.op){
-//                    if((node.child[0].cell.GetNumberType() == Cell.NumberType.DOUBLE) ||
-//                            (node.child[0].cell.GetNumberType() == Cell.NumberType.DOUBLE)){
-//
-//                    }
                     case PLUS:
-                        node.value = TraverseTree(node.child[0]) + TraverseTree(node.child[1]);
-                        return node.value;
+                        if(type == Cell.NumberType.INTEGER) {
+                            node.value = TraverseTree(node.child[0]) + TraverseTree(node.child[1]);
+                            return node.value;
+                        }else{
+                            node.doubleValue = TraverseTree(node.child[0]) + TraverseTree(node.child[1]);
+                            return node.doubleValue;
+                        }
                     case MINUS:
                         node.value = TraverseTree(node.child[0]) - TraverseTree(node.child[1]);
                         return node.value;
