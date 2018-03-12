@@ -31,10 +31,11 @@ public class Parse {
         cell.SetEXPCell(treeNode);
     }
 
-    static int TraverseTree(TreeNode node){
 
-        if(node == null){return -1;}
+    static ReturnTreeStruct TraverseTree(TreeNode node){
 
+        if(node == null){return new ReturnTreeStruct();}
+        ReturnTreeStruct returnTreeStruct = new ReturnTreeStruct();
         switch(node.kind){
             case IdK:
                 Cell cell = Cell.GetCell(node.name,sheet);
@@ -47,9 +48,24 @@ public class Parse {
                 if( node.cell.getType() == Cell.CellType.TEXT){
                     throw new java.lang.RuntimeException("Text");
                 }
-                return node.cell.getValue();
+
+                if( node.cell.numberType == Cell.NumberType.DOUBLE){
+                    returnTreeStruct.isInt = false;
+                    returnTreeStruct.value = node.cell.doubleValue;
+                }else{
+                    returnTreeStruct.value = (double) node.cell.value;
+                }
+
+                return returnTreeStruct;
             case ConstK:
-                return node.value;
+                if( node.cell.numberType == Cell.NumberType.DOUBLE){
+                    returnTreeStruct.isInt = false;
+                    returnTreeStruct.value = node.cell.doubleValue;
+                }else{
+                    returnTreeStruct.value = (double) node.cell.value;
+                }
+
+                return returnTreeStruct;
             case OpK:
 
 
@@ -76,12 +92,7 @@ public class Parse {
                     type = Cell.NumberType.INTEGER;
                     node.cell.SetNumberType(Cell.NumberType.INTEGER);
                 }
-
-
-
-
-
-
+                
                 switch (node.op){
                     case PLUS:
                         if(type == Cell.NumberType.INTEGER) {
