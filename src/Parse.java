@@ -1,6 +1,10 @@
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import static javafx.scene.input.KeyCode.DIVIDE;
+import static javafx.scene.input.KeyCode.MULTIPLY;
+import static javax.management.Query.TIMES;
+
 /**
  * Created by Erin on 2/23/2018.
  */
@@ -38,7 +42,7 @@ public class Parse {
         ReturnTreeStruct returnTreeStruct = new ReturnTreeStruct();
         switch(node.kind){
             case IdK:
-                Cell cell = Cell.GetCell(node.name,sheet);
+                cell = Cell.GetCell(node.name,sheet);
                 node.cell = cell;
                 if(node.cell == null){Error();}
                 //check for blank cells, set current cell to error
@@ -52,69 +56,93 @@ public class Parse {
                 if( node.cell.numberType == Cell.NumberType.DOUBLE){
                     returnTreeStruct.isInt = false;
                     returnTreeStruct.value = node.cell.doubleValue;
+                    node.numberType = Cell.NumberType.DOUBLE;
+                    node.doubleValue = node.cell.doubleValue;
                 }else{
+                    node.numberType = Cell.NumberType.INTEGER;
+                    returnTreeStruct.isInt = true;
+                    node.intValue = node.cell.value;
                     returnTreeStruct.value = (double) node.cell.value;
                 }
-
                 return returnTreeStruct;
+
             case ConstK:
                 if( node.cell.numberType == Cell.NumberType.DOUBLE){
                     returnTreeStruct.isInt = false;
                     returnTreeStruct.value = node.cell.doubleValue;
+                    node.doubleValue = node.cell.doubleValue;
                 }else{
                     returnTreeStruct.value = (double) node.cell.value;
+                    node.intValue = node.cell.value;
                 }
-
                 return returnTreeStruct;
+
             case OpK:
-
-
-
-                Cell.NumberType type = Cell.NumberType.NONE;
-
-                Cell.NumberType child0Type = node.child[0].cell.GetNumberType();
-                Cell.NumberType child1Type = node.child[1].cell.GetNumberType();
-
-                if((child0Type == Cell.NumberType.DOUBLE) && (child1Type == Cell.NumberType.DOUBLE)){
-                    node.cell.SetNumberType(Cell.NumberType.DOUBLE);
-                    type = Cell.NumberType.DOUBLE;
-                }else if(( child0Type == Cell.NumberType.DOUBLE) && (child1Type == Cell.NumberType.INTEGER)){
-                    type = Cell.NumberType.DOUBLE;
-                    node.child[1].cell.SetNumberType(Cell.NumberType.DOUBLE);
-                    node.child[1].cell.setValue((double)( node.child[1].cell.value));
-                    node.cell.SetNumberType(Cell.NumberType.DOUBLE);
-                }else if(( child0Type == Cell.NumberType.INTEGER) && (child1Type == Cell.NumberType.DOUBLE)){
-                    type = Cell.NumberType.DOUBLE;
-                    node.child[0].cell.SetNumberType(Cell.NumberType.DOUBLE);
-                    node.child[0].cell.setValue((double)( node.child[0].cell.value));
-                    node.cell.SetNumberType(Cell.NumberType.DOUBLE);
-                }else if(( child0Type == Cell.NumberType.INTEGER) && (child1Type == Cell.NumberType.INTEGER)){
-                    type = Cell.NumberType.INTEGER;
-                    node.cell.SetNumberType(Cell.NumberType.INTEGER);
-                }
-                
+                ReturnTreeStruct returnTreeStruct1 = TraverseTree(node.child[0]);
+                ReturnTreeStruct returnTreeStruct2 = TraverseTree(node.child[1]);
                 switch (node.op){
                     case PLUS:
-                        if(type == Cell.NumberType.INTEGER) {
-                            node.value = TraverseTree(node.child[0]) + TraverseTree(node.child[1]);
-                            return node.value;
-                        }else{
-                            node.doubleValue = TraverseTree(node.child[0]) + TraverseTree(node.child[1]);
-                            return node.doubleValue;
-                        }
+                        if(!returnTreeStruct1.isInt || !returnTreeStruct2.isInt){
+                        returnTreeStruct1.isInt = false;
+                        returnTreeStruct2.isInt = false;
+                        returnTreeStruct.value = ReturnTreeStruct.Add((double)returnTreeStruct1.value, (double)returnTreeStruct2.value);
+                        returnTreeStruct.isInt = false;
+                        node.doubleValue = returnTreeStruct.value;
+                        node.numberType = Cell.NumberType.DOUBLE;
+                    }else{
+                        node.intValue = ReturnTreeStruct.Add((int)returnTreeStruct1.value, (int)returnTreeStruct2.value);
+                        returnTreeStruct.value = node.intValue;
+                        node.numberType = Cell.NumberType.INTEGER;
+                    }
+                        return returnTreeStruct;
+
                     case MINUS:
-                        node.value = TraverseTree(node.child[0]) - TraverseTree(node.child[1]);
-                        return node.value;
+                        if(!returnTreeStruct1.isInt || !returnTreeStruct2.isInt){
+                            returnTreeStruct1.isInt = false;
+                            returnTreeStruct2.isInt = false;
+                            returnTreeStruct.isInt = false;
+                            returnTreeStruct.value = ReturnTreeStruct.Sub((double)returnTreeStruct1.value, (double)returnTreeStruct2.value);
+                            node.doubleValue = returnTreeStruct.value;
+                            node.numberType = Cell.NumberType.DOUBLE;
+                        }else{
+                            node.intValue = ReturnTreeStruct.Sub((int)returnTreeStruct1.value, (int)returnTreeStruct2.value);
+                            returnTreeStruct.value = node.intValue;
+                            node.numberType = Cell.NumberType.INTEGER;
+                        }
+                        return returnTreeStruct;
                     case TIMES:
-                        node.value = TraverseTree(node.child[0]) * TraverseTree(node.child[1]);
-                        return node.value;
+                        if(!returnTreeStruct1.isInt || !returnTreeStruct2.isInt){
+                            returnTreeStruct1.isInt = false;
+                            returnTreeStruct2.isInt = false;
+                            returnTreeStruct.isInt = false;
+                            returnTreeStruct.value = ReturnTreeStruct.Multiply((double)returnTreeStruct1.value, (double)returnTreeStruct2.value);
+                            node.doubleValue = returnTreeStruct.value;
+                            node.numberType = Cell.NumberType.DOUBLE;
+                       }else{
+                           node.intValue = ReturnTreeStruct.Multiply((int)returnTreeStruct1.value, (int)returnTreeStruct2.value);
+                           returnTreeStruct.value = node.intValue;
+                           node.numberType = Cell.NumberType.INTEGER;
+                       }
+                        return returnTreeStruct;
                     case DIVIDE:
-                        node.value = TraverseTree(node.child[0]) / TraverseTree(node.child[1]);
-                        return node.value;
+                        if(!returnTreeStruct1.isInt || !returnTreeStruct2.isInt){
+                            returnTreeStruct1.isInt = false;
+                            returnTreeStruct2.isInt = false;
+                            returnTreeStruct.isInt = false;
+                            returnTreeStruct.value = ReturnTreeStruct.Divide((double)returnTreeStruct1.value, (double)returnTreeStruct2.value);
+                            node.doubleValue = returnTreeStruct.value;
+                            node.numberType = Cell.NumberType.DOUBLE;
+                        }else{
+                            node.intValue = ReturnTreeStruct.Divide((int)returnTreeStruct1.value, (int)returnTreeStruct2.value);
+                            returnTreeStruct.value = node.intValue;
+                            node.numberType = Cell.NumberType.INTEGER;
+                        }
+                        return returnTreeStruct;
+
                 }
                 break;
         }
-        return -1;
+        return null;
 
     }
 

@@ -7,8 +7,9 @@ public class TreeNode {
     public TreeNode[] child;
     public Token.TokenType op;
     public String name;
-    public int value;
     public double doubleValue;
+    public int intValue;
+    public int value;
     public ExpKind kind;
     public Cell cell;
     public int lineno = 0;
@@ -45,20 +46,32 @@ public class TreeNode {
                         line += "DIVIDE";
                         break;
                 }
-                line += "\t <VALUE>: " + Integer.toString(value);
-//                if(cell.GetNumberType() == Cell.NumberType.INTEGER){
-//                    line += " (int) ";
-//                }else if(cell.GetNumberType() == Cell.NumberType.DOUBLE){
-//                    line += " (double) ";
-//                }
+
+                if(numberType == Cell.NumberType.INTEGER){
+                    line += "\t <VALUE>: " + Integer.toString(intValue);
+                    line += " (int) ";
+                }else if(numberType == Cell.NumberType.DOUBLE){
+                    line += "\t <VALUE>: " + Double.toString(doubleValue);
+                    line += " (double) ";
+                }
                 break;
             case ConstK:
-                String t;
-                if(cell.GetNumberType() == Cell.NumberType.INTEGER){t = "Integer";}else{t = "Double";}
-                line += "<VALUE>: " + Integer.toString(value) + "<TYPE>: " + t;
+                if(numberType == Cell.NumberType.INTEGER){
+                    line += "<VALUE>: " + Integer.toString(intValue) + "<TYPE>: Integer";
+                }else{
+                    line += "<VALUE>: " + Double.toString(doubleValue) + "<TYPE>: Double";
+                }
+
                 break;
             case IdK:
-                line += "<VALUE>: " + cell.getId() + " = "+ Integer.toString(cell.getValue());
+
+                if(numberType == Cell.NumberType.INTEGER){
+                    line += "<VALUE>: " + cell.getId() + " = "+ Integer.toString(cell.value);
+                    line += " (int) ";
+                }else if(numberType == Cell.NumberType.DOUBLE){
+                    line += "<VALUE>: " + cell.getId() + " = "+ Double.toString(cell.doubleValue);
+                    line += " (double) ";
+                }
                 break;
 
         }

@@ -1,7 +1,7 @@
       |     A      |     B      |     C      |     D      |     E      |     F      |
-   0  |         Y =|       aXX +|      bX + C|           =|       ERROR|            |
-   1  |         Y =|      (aX+B)|        *X+C|           =|       ERROR|            |
-   2  |         X =|           5|            |            |            |            |
+   0  |         Y =|       aXX +|      bX + C|           =|        61.5|            |
+   1  |         Y =|      (aX+B)|        *X+C|           =|        61.5|            |
+   2  |         X =|         5.5|            |            |            |            |
    3  |         a =|           2|            |            |            |            |
    4  |         b =|           2|            |            |            |            |
    5  |         c =|         -10|            |            |            |            |
@@ -31,24 +31,22 @@ D0:
 	Users: {}
 
 E0:
-	CELL ERROR: Invalid cell value in equation
-
-	Value: ERROR (poop) 
+	Value: 61.5 (poop) 
 	Controllers: {B3 B2 B4 B5 }
 	Users: {}
 
 Expression AST:
-<OP>: PLUS	 <VALUE>: 0
-    <OP>: PLUS	 <VALUE>: 0
-        <OP>: TIMES	 <VALUE>: 0
-            <OP>: TIMES	 <VALUE>: 0
-                <VALUE>: B3 = 2
-                <VALUE>: B2 = 5
-            <VALUE>: B2 = 5
-        <OP>: TIMES	 <VALUE>: 0
-            <VALUE>: B4 = 2
-            <VALUE>: B2 = 5
-    <VALUE>: B5 = -10
+<OP>: PLUS	 <VALUE>: 61.5 (double) 
+    <OP>: PLUS	 <VALUE>: 71.5 (double) 
+        <OP>: TIMES	 <VALUE>: 60.5 (double) 
+            <OP>: TIMES	 <VALUE>: 11.0 (double) 
+                <VALUE>: B3 = 2 (int) 
+                <VALUE>: B2 = 5.5 (double) 
+            <VALUE>: B2 = 5.5 (double) 
+        <OP>: TIMES	 <VALUE>: 11.0 (double) 
+            <VALUE>: B4 = 2 (int) 
+            <VALUE>: B2 = 5.5 (double) 
+    <VALUE>: B5 = -10 (int) 
 
 F0: EMPTY
 
@@ -73,22 +71,20 @@ D1:
 	Users: {}
 
 E1:
-	CELL ERROR: Invalid cell value in equation
-
-	Value: ERROR (poop) 
+	Value: 61.5 (poop) 
 	Controllers: {B3 B2 B4 B5 }
 	Users: {}
 
 Expression AST:
-<OP>: PLUS	 <VALUE>: 0
-    <OP>: TIMES	 <VALUE>: 0
-        <OP>: PLUS	 <VALUE>: 0
-            <OP>: TIMES	 <VALUE>: 0
-                <VALUE>: B3 = 2
-                <VALUE>: B2 = 5
-            <VALUE>: B4 = 2
-        <VALUE>: B2 = 5
-    <VALUE>: B5 = -10
+<OP>: PLUS	 <VALUE>: 61.5 (double) 
+    <OP>: TIMES	 <VALUE>: 71.5 (double) 
+        <OP>: PLUS	 <VALUE>: 13.0 (double) 
+            <OP>: TIMES	 <VALUE>: 11.0 (double) 
+                <VALUE>: B3 = 2 (int) 
+                <VALUE>: B2 = 5.5 (double) 
+            <VALUE>: B4 = 2 (int) 
+        <VALUE>: B2 = 5.5 (double) 
+    <VALUE>: B5 = -10 (int) 
 
 F1: EMPTY
 
@@ -98,7 +94,7 @@ A2:
 	Users: {}
 
 B2:
-	Value: 5 (int) 
+	Value: 5.5 (double) 
 	Controllers: {}
 	Users: {E0 E1 }
 

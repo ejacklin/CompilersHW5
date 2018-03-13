@@ -1,6 +1,6 @@
       |     A      |     B      |     C      |     D      |     E      |     F      |
-   0  |         Y =|       aXX +|      bX + C|           =|         -10|            |
-   1  |         Y =|      (aX+B)|        *X+C|           =|         -10|            |
+   0  |         Y =|       aXX +|      bX + C|           =|        39.5|            |
+   1  |         Y =|      (aX+B)|        *X+C|           =|        39.5|            |
    2  |         X =|         4.5|            |            |            |            |
    3  |         a =|           2|            |            |            |            |
    4  |         b =|           2|            |            |            |            |
@@ -31,22 +31,22 @@ D0:
 	Users: {}
 
 E0:
-	Value: -10
+	Value: 39.5
 	Controllers: {B3 B2 B4 B5 }
 	Users: {}
 
 Expression AST:
-<OP>: PLUS	 <VALUE>: -10
-    <OP>: PLUS	 <VALUE>: 0
-        <OP>: TIMES	 <VALUE>: 0
-            <OP>: TIMES	 <VALUE>: 0
-                <VALUE>: B3 = 2
-                <VALUE>: B2 = 0
-            <VALUE>: B2 = 0
-        <OP>: TIMES	 <VALUE>: 0
-            <VALUE>: B4 = 2
-            <VALUE>: B2 = 0
-    <VALUE>: B5 = -10
+<OP>: PLUS	 <VALUE>: 39.5 (double) 
+    <OP>: PLUS	 <VALUE>: 49.5 (double) 
+        <OP>: TIMES	 <VALUE>: 40.5 (double) 
+            <OP>: TIMES	 <VALUE>: 9.0 (double) 
+                <VALUE>: B3 = 2 (int) 
+                <VALUE>: B2 = 4.5 (double) 
+            <VALUE>: B2 = 4.5 (double) 
+        <OP>: TIMES	 <VALUE>: 9.0 (double) 
+            <VALUE>: B4 = 2 (int) 
+            <VALUE>: B2 = 4.5 (double) 
+    <VALUE>: B5 = -10 (int) 
 
 F0: EMPTY
 
@@ -71,20 +71,20 @@ D1:
 	Users: {}
 
 E1:
-	Value: -10
+	Value: 39.5
 	Controllers: {B3 B2 B4 B5 }
 	Users: {}
 
 Expression AST:
-<OP>: PLUS	 <VALUE>: -10
-    <OP>: TIMES	 <VALUE>: 0
-        <OP>: PLUS	 <VALUE>: 2
-            <OP>: TIMES	 <VALUE>: 0
-                <VALUE>: B3 = 2
-                <VALUE>: B2 = 0
-            <VALUE>: B4 = 2
-        <VALUE>: B2 = 0
-    <VALUE>: B5 = -10
+<OP>: PLUS	 <VALUE>: 39.5 (double) 
+    <OP>: TIMES	 <VALUE>: 49.5 (double) 
+        <OP>: PLUS	 <VALUE>: 11.0 (double) 
+            <OP>: TIMES	 <VALUE>: 9.0 (double) 
+                <VALUE>: B3 = 2 (int) 
+                <VALUE>: B2 = 4.5 (double) 
+            <VALUE>: B4 = 2 (int) 
+        <VALUE>: B2 = 4.5 (double) 
+    <VALUE>: B5 = -10 (int) 
 
 F1: EMPTY
 
@@ -94,7 +94,7 @@ A2:
 	Users: {}
 
 B2:
-	Value: 4.5
+	Value: 4.5 (double) 
 	Controllers: {}
 	Users: {E0 E1 }
 
@@ -109,7 +109,7 @@ A3:
 	Users: {}
 
 B3:
-	Value: 2
+	Value: 2 (int) 
 	Controllers: {}
 	Users: {E0 E1 }
 
@@ -124,7 +124,7 @@ A4:
 	Users: {}
 
 B4:
-	Value: 2
+	Value: 2 (int) 
 	Controllers: {}
 	Users: {E0 E1 }
 
@@ -139,7 +139,7 @@ A5:
 	Users: {}
 
 B5:
-	Value: -10
+	Value: -10 (int) 
 	Controllers: {}
 	Users: {E0 E1 }
 

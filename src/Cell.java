@@ -192,9 +192,15 @@ public class Cell {
 
     public void CalculateExpression() {
         try {
-            int result = Parse.TraverseTree(treeNode);
-            display = Integer.toString(result);
-            value = result;
+            ReturnTreeStruct result = Parse.TraverseTree(treeNode);
+            if(result.isInt){
+                display = Integer.toString((int)result.value);
+                value = (int)result.value;
+            }else{
+                display = Double.toString(result.value);
+                doubleValue = result.value;
+            }
+
         }catch(RuntimeException e){
             error = true;
             display = "ERROR";
@@ -206,9 +212,18 @@ public class Cell {
         if(!users.isEmpty()){
             for (Cell u: users) {
                 try {
-                    int result = Parse.TraverseTree(u.treeNode);
-                    u.display = Integer.toString(result);
-                    u.value = result;
+                    ReturnTreeStruct result = Parse.TraverseTree(u.treeNode);
+                    if(result.isInt){
+                        u.display = Integer.toString((int)result.value);
+                        u.value = (int)result.value;
+                    }else{
+                        u.display = Double.toString(result.value);
+                        u.doubleValue = result.value;
+                    }
+
+
+//                    u.display = Integer.toString(result);
+//                    u.value = result;
                     u.error = false;
                 }catch(RuntimeException e){
                     u.error = true;
@@ -305,7 +320,7 @@ public class Cell {
                 str += " (int) ";
             }else if(numberType == NumberType.DOUBLE){
                 str += " (double) ";
-            }else{str += " (poop) ";}
+            }
             str += "\n\tControllers: {";
             for (Cell c : controllers) {
                 str += c.id + " ";
