@@ -12,8 +12,8 @@ public class Main {
             inFile = args[0];
             outFile = args[1];
         }else {
-            inFile = "src\\HW5-Input.txt";
-            outFile = "src\\HW5-Output.txt";
+            inFile = "HW5-Input.txt";
+            outFile = "HW5-Output.txt";
         }
 
         PrintWriter writer = null;

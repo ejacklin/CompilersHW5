@@ -11,277 +11,169 @@
    9  |            |            |            |            |            |            |
 
 A0:
+	Value: X =
 	Controllers: {}
 	Users: {}
 
 B0:
+	Value: 5 (int) 
 	Controllers: {}
 	Users: {E0 E2 }
 
-C0:
-	Controllers: {}
-	Users: {}
-
+C0: EMPTY
 D0:
+	Value: X^2 =
 	Controllers: {}
 	Users: {}
 
 E0:
+	Value: 25
 	Controllers: {B0 }
 	Users: {E1 }
 
 Expression AST:
-<OP>: TIMES
-    <VALUE>: B0 = 5
-    <VALUE>: B0 = 5
+<OP>: TIMES	 <VALUE>: 25 (int) 
+    <VALUE>: B0 = 5 (int) 
+    <VALUE>: B0 = 5 (int) 
 
-F0:
-	Controllers: {}
-	Users: {}
-
+F0: EMPTY
 
 A1:
+	Value: a =
 	Controllers: {}
 	Users: {}
 
 B1:
+	Value: 2 (int) 
 	Controllers: {}
 	Users: {E1 }
 
-C1:
-	Controllers: {}
-	Users: {}
-
+C1: EMPTY
 D1:
+	Value: aXX =
 	Controllers: {}
 	Users: {}
 
 E1:
+	Value: 50
 	Controllers: {B1 E0 }
 	Users: {E3 }
 
 Expression AST:
-<OP>: TIMES
-    <VALUE>: B1 = 2
-    <VALUE>: E0 = 25
+<OP>: TIMES	 <VALUE>: 50 (int) 
+    <VALUE>: B1 = 2 (int) 
+    <VALUE>: E0 = 25 (int) 
 
-F1:
-	Controllers: {}
-	Users: {}
-
+F1: EMPTY
 
 A2:
+	Value: b =
 	Controllers: {}
 	Users: {}
 
 B2:
+	Value: 2 (int) 
 	Controllers: {}
 	Users: {E2 }
 
-C2:
-	Controllers: {}
-	Users: {}
-
+C2: EMPTY
 D2:
+	Value: bX =
 	Controllers: {}
 	Users: {}
 
 E2:
+	Value: 10
 	Controllers: {B2 B0 }
 	Users: {E3 }
 
 Expression AST:
-<OP>: TIMES
-    <VALUE>: B2 = 2
-    <VALUE>: B0 = 5
+<OP>: TIMES	 <VALUE>: 10 (int) 
+    <VALUE>: B2 = 2 (int) 
+    <VALUE>: B0 = 5 (int) 
 
-F2:
-	Controllers: {}
-	Users: {}
-
+F2: EMPTY
 
 A3:
+	Value: c =
 	Controllers: {}
 	Users: {}
 
 B3:
+	Value: -10 (int) 
 	Controllers: {}
 	Users: {C5 }
 
-C3:
-	Controllers: {}
-	Users: {}
-
+C3: EMPTY
 D3:
+	Value: sum
 	Controllers: {}
 	Users: {}
 
 E3:
+	Value: 60
 	Controllers: {E1 E2 }
 	Users: {C5 }
 
 Expression AST:
-<OP>: PLUS
-    <VALUE>: E1 = 50
-    <VALUE>: E2 = 10
+<OP>: PLUS	 <VALUE>: 60 (int) 
+    <VALUE>: E1 = 50 (int) 
+    <VALUE>: E2 = 10 (int) 
 
-F3:
-	Controllers: {}
-	Users: {}
+F3: EMPTY
 
-
-A4:
-	Controllers: {}
-	Users: {}
-
-B4:
-	Controllers: {}
-	Users: {}
-
-C4:
-	Controllers: {}
-	Users: {}
-
-D4:
-	Controllers: {}
-	Users: {}
-
-E4:
-	Controllers: {}
-	Users: {}
-
-F4:
-	Controllers: {}
-	Users: {}
-
+A4: EMPTY
+B4: EMPTY
+C4: EMPTY
+D4: EMPTY
+E4: EMPTY
+F4: EMPTY
 
 A5:
+	Value:   Y =
 	Controllers: {}
 	Users: {}
 
-B5:
-	Controllers: {}
-	Users: {}
-
+B5: EMPTY
 C5:
+	Value: 50
 	Controllers: {E3 B3 }
 	Users: {}
 
 Expression AST:
-<OP>: PLUS
-    <VALUE>: E3 = 60
-    <VALUE>: B3 = -10
+<OP>: PLUS	 <VALUE>: 50 (int) 
+    <VALUE>: E3 = 60 (int) 
+    <VALUE>: B3 = -10 (int) 
 
-D5:
-	Controllers: {}
-	Users: {}
+D5: EMPTY
+E5: EMPTY
+F5: EMPTY
 
-E5:
-	Controllers: {}
-	Users: {}
+A6: EMPTY
+B6: EMPTY
+C6: EMPTY
+D6: EMPTY
+E6: EMPTY
+F6: EMPTY
 
-F5:
-	Controllers: {}
-	Users: {}
+A7: EMPTY
+B7: EMPTY
+C7: EMPTY
+D7: EMPTY
+E7: EMPTY
+F7: EMPTY
 
+A8: EMPTY
+B8: EMPTY
+C8: EMPTY
+D8: EMPTY
+E8: EMPTY
+F8: EMPTY
 
-A6:
-	Controllers: {}
-	Users: {}
-
-B6:
-	Controllers: {}
-	Users: {}
-
-C6:
-	Controllers: {}
-	Users: {}
-
-D6:
-	Controllers: {}
-	Users: {}
-
-E6:
-	Controllers: {}
-	Users: {}
-
-F6:
-	Controllers: {}
-	Users: {}
-
-
-A7:
-	Controllers: {}
-	Users: {}
-
-B7:
-	Controllers: {}
-	Users: {}
-
-C7:
-	Controllers: {}
-	Users: {}
-
-D7:
-	Controllers: {}
-	Users: {}
-
-E7:
-	Controllers: {}
-	Users: {}
-
-F7:
-	Controllers: {}
-	Users: {}
-
-
-A8:
-	Controllers: {}
-	Users: {}
-
-B8:
-	Controllers: {}
-	Users: {}
-
-C8:
-	Controllers: {}
-	Users: {}
-
-D8:
-	Controllers: {}
-	Users: {}
-
-E8:
-	Controllers: {}
-	Users: {}
-
-F8:
-	Controllers: {}
-	Users: {}
-
-
-A9:
-	Controllers: {}
-	Users: {}
-
-B9:
-	Controllers: {}
-	Users: {}
-
-C9:
-	Controllers: {}
-	Users: {}
-
-D9:
-	Controllers: {}
-	Users: {}
-
-E9:
-	Controllers: {}
-	Users: {}
-
-F9:
-	Controllers: {}
-	Users: {}
-
+A9: EMPTY
+B9: EMPTY
+C9: EMPTY
+D9: EMPTY
+E9: EMPTY
+F9: EMPTY
 
